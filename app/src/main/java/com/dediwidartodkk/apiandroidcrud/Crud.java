@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
@@ -592,5 +593,10 @@ public class Crud extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
     @Override
     public void onBackPressed() {
         Toast.makeText(this,"Silahkan pilih menu logout untuk keluar", Toast.LENGTH_LONG).show();
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.crud, menu);
+        return true;
     }
 }
