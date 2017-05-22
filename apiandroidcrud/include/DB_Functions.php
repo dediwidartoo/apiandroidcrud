@@ -118,8 +118,27 @@ class DB_Functions {
     public function checkhashSSHA($salt, $password) {
 
         $hash = base64_encode(sha1($password . $salt, true) . $salt);
-
         return $hash;
+    }
+
+    public function caridata($cr) {
+
+        $stmt = $this->conn->prepare("SELECT * FROM biodata WHERE nama LIKE CONCAT('%',?,'%')");
+
+        $stmt->bind_param("s", $cr);
+
+        if ($stmt->execute()) {
+            $search = $stmt->get_result()->fetch_assoc();
+            $stmt->close();
+           
+            if ($search){
+             // cek status
+            return $search;
+            }
+            else {
+                return NULL;
+            }
+        } 
     }
 
 }

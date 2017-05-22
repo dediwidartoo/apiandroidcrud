@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "452669068424",
+    "project_id": "crud-5488e"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:452669068424:android:a02447f07a4aa279",
+        "android_client_info": {
+          "package_name": "com.dediwidartodkk.apiandroidcrud"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "452669068424-nlhh2t19th75hoflit0ffln0b1o6fk7e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dediwidartodkk.apiandroidcrud",
+            "certificate_hash": "f4b465a4cceba738c28200e0619c7a8a83287e6b"
+          }
+        },
+        {
+          "client_id": "452669068424-65aeka2mbq5337js2u8462up3ds1t4ov.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyNR2UTk6k8LaufX24Yy8OOEef1fZL59Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
