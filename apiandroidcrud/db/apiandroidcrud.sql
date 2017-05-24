@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2017 at 01:37 AM
+-- Generation Time: May 23, 2017 at 02:52 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -28,8 +28,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `biodata` (
   `id` int(11) NOT NULL,
-  `nama` varchar(20) NOT NULL,
-  `alamat` text NOT NULL
+  `nama` varchar(255) NOT NULL,
+  `alamat` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -37,6 +37,57 @@ CREATE TABLE `biodata` (
 --
 
 INSERT INTO `biodata` (`id`, `nama`, `alamat`) VALUES
+(1, 'Mastah mahbub', 'Tahunan jepara'),
+(2, 'andis', 'tekeyan'),
+(3, 'fahmi', 'senenan'),
+(4, 'Almira Winarsih', 'Kpg. Surapati No. 284, Batam 34721, Bali'),
+(5, 'Ana Purwanti S.T.', 'Psr. Padma No. 474, Pematangsiantar 18274, KalSel'),
+(6, 'Hana Sudiati S.T.', 'Kpg. Siliwangi No. 307, Sorong 89601, Maluku'),
+(7, 'Hesti Namaga', 'Jr. Yos No. 78, Payakumbuh 95842, NTT'),
+(8, 'Wahyu Prakasa', 'Jr. Adisumarmo No. 572, Tasikmalaya 32681, Papua'),
+(9, 'Elvina Rahimah', 'Gg. Halim No. 526, Banjar 42636, NTB'),
+(10, 'Narji Lazuardi', 'Psr. Yos No. 233, Blitar 12402, MalUt'),
+(11, 'Zelaya Usamah', 'Kpg. Bayam No. 504, Sukabumi 47611, SumUt'),
+(12, 'Sarah Kiandra Halimah S.Gz', 'Ds. Honggowongso No. 483, Palembang 56192, Jambi'),
+(13, 'Vanesa Wastuti S.I.Kom', 'Jr. Bakau Griya Utama No. 374, Cilegon 91430, Beng'),
+(14, 'Anita Haryanti M.Ak', 'Dk. Rajawali Timur No. 180, Cilegon 66967, JaTeng'),
+(15, 'Aurora Fujiati S.Sos', 'Jln. Ir. H. Juanda No. 344, Blitar 75986, SumSel'),
+(16, 'Dirja Waskita', 'Kpg. Baing No. 947, Mataram 88939, KalTim'),
+(17, 'Maras Jailani', 'Psr. Wora Wari No. 798, Sibolga 22468, JaTeng'),
+(18, 'Marsito Wahyudin', 'Gg. W.R. Supratman No. 870, Surakarta 76195, Bali'),
+(19, 'Sari Faizah Yuliarti', 'Psr. Padma No. 511, Surabaya 78995, KalBar'),
+(20, 'Rina Clara Anggraini S.T.', 'Ki. Pahlawan No. 102, Pagar Alam 68829, DKI'),
+(21, 'Waluyo Gunawan', 'Jln. Pattimura No. 472, Jambi 69091, PapBar'),
+(22, 'Widya Samiah Yuliarti', 'Jr. Moch. Ramdan No. 834, Yogyakarta 42413, DIY'),
+(23, 'Maimunah Yuliarti', 'Ds. W.R. Supratman No. 287, Bitung 25867, Aceh'),
+(24, 'Dariati Balijan Wijaya', 'Jr. Bahagia No. 6, Padangpanjang 92414, JaBar'),
+(25, 'Wardi Sihombing M.Farm', 'Ds. Ters. Kiaracondong No. 805, Sorong 96623, Goro'),
+(26, 'Ika Elvina Rahayu', 'Ds. Mulyadi No. 466, Solok 60731, SumUt'),
+(27, 'Hasan Perkasa Waskita', 'Kpg. Yoga No. 889, Banjar 68987, SumSel'),
+(28, 'Cagak Sitompul', 'Psr. Warga No. 583, Sorong 83028, KalTeng'),
+(29, 'Oliva Mardhiyah', 'Ds. Ters. Buah Batu No. 551, Administrasi Jakarta '),
+(30, 'Genta Tami Nasyidah', 'Jln. Moch. Toha No. 786, Pagar Alam 77582, SumSel'),
+(31, 'Safina Hastuti', 'Dk. Kyai Gede No. 228, Padangsidempuan 91393, JaBa'),
+(32, 'Lili Halimah', 'Psr. Gajah No. 203, Mataram 70845, Riau'),
+(33, 'Bala Salman Tarihoran', 'Kpg. Eka No. 573, Solok 47187, Lampung');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `biodata1`
+--
+
+CREATE TABLE `biodata1` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(20) NOT NULL,
+  `alamat` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `biodata1`
+--
+
+INSERT INTO `biodata1` (`id`, `nama`, `alamat`) VALUES
 (1, 'Garan Prasasta', 'Ds. Bambu No. 293, Probolinggo 50568, SumUt'),
 (2, 'Restu Hani Padmasari', 'Ds. M.T. Haryono No. 65, Kotamobagu 41208, Maluku'),
 (3, 'Belinda Mayasari', 'Kpg. Bakau No. 343, Bandung 19015, PapBar'),
@@ -146,7 +197,18 @@ INSERT INTO `users` (`id`, `unique_id`, `name`, `email`, `encrypted_password`, `
 -- Indexes for table `biodata`
 --
 ALTER TABLE `biodata`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id` (`id`);
+ALTER TABLE `biodata` ADD FULLTEXT KEY `my_index` (`nama`,`alamat`);
+
+--
+-- Indexes for table `biodata1`
+--
+ALTER TABLE `biodata1`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `nama` (`nama`),
+  ADD KEY `alamat` (`alamat`),
+  ADD KEY `id` (`id`);
 
 --
 -- Indexes for table `users`
@@ -164,6 +226,11 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `biodata`
 --
 ALTER TABLE `biodata`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+--
+-- AUTO_INCREMENT for table `biodata1`
+--
+ALTER TABLE `biodata1`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 --
 -- AUTO_INCREMENT for table `users`

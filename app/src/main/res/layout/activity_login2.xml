@@ -59,6 +59,19 @@
         android:textColor="@color/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="OR"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:textAlignment="center"/>
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/btn_sign_in"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp" />
 
     <Button
         android:id="@+id/btnLinkToRegisterScreen"
@@ -72,12 +85,12 @@
         android:textSize="15dp" />
 
     <ProgressBar
-        style="@style/Base.Widget.AppCompat.ProgressBar"
         android:id="@+id/progress"
-        android:visibility="invisible"
-        android:layout_marginTop="10dp"
+        style="@style/Base.Widget.AppCompat.ProgressBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:indeterminate="true" />
+        android:layout_marginTop="10dp"
+        android:indeterminate="true"
+        android:visibility="invisible" />
 
 </LinearLayout>

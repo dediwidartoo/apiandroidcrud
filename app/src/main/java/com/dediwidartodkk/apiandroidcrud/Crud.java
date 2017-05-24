@@ -39,6 +39,12 @@ import com.dediwidartodkk.apiandroidcrud.data.Data;
 import com.dediwidartodkk.apiandroidcrud.helper.SQLiteHandler;
 import com.dediwidartodkk.apiandroidcrud.helper.SessionManager;
 import com.dediwidartodkk.apiandroidcrud.until.Server;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,7 +58,8 @@ import java.util.Map;
 import static com.dediwidartodkk.apiandroidcrud.MainActivity.TAG_NO;
 
 public class Crud extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener
-        ,NavigationView.OnNavigationItemSelectedListener {
+        ,NavigationView.OnNavigationItemSelectedListener,View.OnClickListener,
+        GoogleApiClient.OnConnectionFailedListener {
 
     Toolbar toolbar;
     FloatingActionButton fab;
@@ -85,6 +92,8 @@ public class Crud extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
     public static final String TAG_ALAMAT   = "alamat";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
+
+    private GoogleApiClient mGoogleApiClient;
     Handler handler;
     Runnable runnable;
     String tag_json_obj = "json_obj_req";
@@ -95,6 +104,13 @@ public class Crud extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
         setContentView(R.layout.activity_crud);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
 
 
         // SqLite database handler
@@ -542,41 +558,47 @@ public class Crud extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.nav_Logout){
 
-            AlertDialog.Builder builder1 = new AlertDialog.Builder(Crud.this);
-            builder1.setMessage("Apakah kamu ingin Logout.");
-            builder1.setCancelable(true);
-
-            builder1.setPositiveButton(
-                    "Ya",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-
-                            logoutUser();
-                        }
-                    });
-
-            builder1.setNegativeButton(
-                    "Tidak",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-
-                            dialog.cancel();
-
-                        }
-                    });
-
-            AlertDialog alert11 = builder1.create();
-            alert11.show();
-        }
         if (id == R.id.tambah_data){
             DialogForm("", "", "", "SIMPAN");
+        }
+
+        if (id == R.id.nav_Logout_google){
+            signOut();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layoutt);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void signOut() {
+
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        updateUI(false);
+                    }
+                });
+    }
+
+    private void updateUI(boolean isSignedIn) {
+        if (isSignedIn) {
+            Toast.makeText(this,"Silahkan pilih menu logout untuk keluar", Toast.LENGTH_LONG).show();
+
+        } else {
+
+            session.setLogin(false);
+
+            db.deleteUsers();
+
+            // Launching the login activity
+            Intent intent = new Intent(Crud.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
     }
 
     private void logoutUser() {
@@ -598,5 +620,29 @@ public class Crud extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.crud, menu);
         return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        //handle presses on the action bar items
+        switch (item.getItemId()) {
+
+            case R.id.action_cari:
+                startActivity(new Intent(this, cari.class));
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onClick(View view) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }
