@@ -1,13 +1,13 @@
 <?php
 	include "koneksi.php";
-	sleep(2);
+	//sleep(2);
 
-	$offset = isset($_GET['offset']) && $_GET['offset'] != '' ? $_GET['offset'] : 0;
+	$cari = isset($_POST['cari']) && $_POST['cari'] != '' ? $_POST['cari'] : 0;
 
-	$all = mysql_query("SELECT * FROM biodata ORDER BY id DESC");
+	$all = mysql_query("SELECT * FROM biodata WHERE nama LIKE CONCAT('%',?,'%')");
 	$count_all = mysql_num_rows($all);
 
-	$query = mysql_query("SELECT * FROM biodata ORDER BY id DESC LIMIT $offset,10");
+	$query = mysql_query("SELECT * FROM biodata WHERE nama LIKE CONCAT('%',?,'%') LIMIT $cari,10");
 
 	$count = mysql_num_rows($query);
 	$json_kosong = 0;
@@ -16,27 +16,25 @@
 		if($count==0){
 			$json_kosong = 1;
 		}else{
-			$query = mysql_query("SELECT * FROM biodata ORDER BY id DESC LIMIT $offset,$count");
+			$query = mysql_query("SELECT * FROM biodata WHERE nama LIKE CONCAT('%',?,'%') LIMIT $cari,$count");
 			$count = mysql_num_rows($query);
 			if(empty($count)){
-				$query = mysql_query("SELECT * FROM biodata ORDER BY id DESC LIMIT 0,10");
+				$query = mysql_query("SELECT * FROM biodata WHERE nama LIKE CONCAT('%',?,'%') LIMIT 0,10");
 				$num = 0;
 			}else{
-				$num = $offset;
+				$num = $cari;
 			}
 		}
 	} else{
-		$num = $offset;
+		$num = $cari;
 	}
 
 	$json = '[';
-
 	while ($row = mysql_fetch_array($query)){
 		$num++;
 		$char ='"';
 		$json .= '{
 			"no": '.$num.',
-			"id": "'.str_replace($char,'`',strip_tags($row['id'])).'",
 			"nama": "'.str_replace($char,'`',strip_tags($row['nama'])).'",
 			"alamat": "'.str_replace($char,'`',strip_tags($row['alamat'])).'"},';
 	}
@@ -45,7 +43,7 @@
 
 
 	if($json_kosong==1){
-		$json = '[{ "no": "", "id": "", "name": "", "alamat": ""}]';
+		$json = '[{ "no": "", "name": "", "alamat": ""}]';
 	}else{
 		$json .= ']';
 	}

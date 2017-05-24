@@ -8,8 +8,9 @@
             android:id="@+id/tambah_data"
             android:title="Tambah data" />
 
+
         <item
-            android:id="@+id/nav_Logout"
+            android:id="@+id/nav_Logout_google"
             android:title="Logout" />
 
     </group>

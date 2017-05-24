@@ -4,18 +4,10 @@
     tools:context="com.sartainstudios.contacts.ContactsView">
 
     <item
-        android:id="@+id/action_search"
+        android:id="@+id/action_cari"
         android:title="action_search"
         android:icon="@mipmap/ic_search"
-        app:showAsAction="always"
-        app:actionViewClass="android.support.v7.widget.SearchView" />
+        app:showAsAction="always" />
 
-
-
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="setting critane"
-        app:showAsAction="never" />
 
 </menu>

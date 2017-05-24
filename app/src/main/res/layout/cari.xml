@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dediwidartodkk.apiandroidcrud.MainActivity">
-
+    android:orientation="vertical">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbarcari"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -20,14 +18,11 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <FrameLayout
-        android:id="@+id/framelayout"
-        android:layout_marginTop="?attr/actionBarSize"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fishPriceList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <include layout="@layout/content_main" />
-    </FrameLayout>
-
-
-
-</android.support.design.widget.CoordinatorLayout>
+        android:layout_height="match_parent"
+        android:paddingTop="10dp"
+        android:layout_weight="1"
+        />
+</LinearLayout>
